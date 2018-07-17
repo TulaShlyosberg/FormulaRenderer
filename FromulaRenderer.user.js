@@ -22,12 +22,15 @@ function htmlReplacer(str, offset, s){
 function prepareInnerHTML(innerStr){
     var hasFormula = innerStr.search(/[\\\$][\[\]\$]/);
     if (hasFormula == -1) return innerStr;    //если формул нет - выходим
+	//разбиваем на составляющие: блоки состоящие из текста и из формул
+	//для блоков, которые заключены между $$ - identity: false, для тех, которые между \[ и \]
+	//identity: true
     var text = innerStr.split('$$');
-    var identity = new Array(text.length).fill(false);
+    var identity = new Array(text.length).fill(false);   
     var len = text.length;
     var index = 0;
     for(var i = 0; i < len; i++){
-        var elem = text[index].split(/\\[\]\[]/);
+        var elem = text[index].split(/\\[\]\[]/); 
         if (elem.length === 1) index++;
         else {
             [].splice.apply(text, [index, 1].concat(elem));
@@ -35,12 +38,16 @@ function prepareInnerHTML(innerStr){
             index+= elem.length;
         }
     }
+	//из свойств операции split - все формулы в массиве text стоят на нечетных местах
     for(var formulaIndex = 1; formulaIndex < text.length; formulaIndex+= 2){
         var buffer = document.createElement('span');
         try{
+			//заменяем математические html-символы на unicode
+			//identity: true - форумла в новом абзаце, false - в старом
             katex.render(text[formulaIndex].replace(/&quot;|&gt;|&lt;/g, htmlReplacer), buffer, {displayMode: identity[formulaIndex]});
             text[formulaIndex] = buffer.innerHTML;
         } catch(e) {
+			//некорректный код latex
             buffer.setAttribute('style', 'background: #fc0;');
             buffer.innerHTML = text[formulaIndex];
             text[formulaIndex] = buffer.outerHTML;
@@ -51,6 +58,7 @@ function prepareInnerHTML(innerStr){
 
 
 
+//ищем все сообщения в диалоге
 function render_messages(){
     var messages = document.getElementsByClassName('im-mess--text wall_module _im_log_body');
     for (var i = messages.length - 1; i >= 0; i--){
@@ -59,7 +67,7 @@ function render_messages(){
 }
 
 
-
+//эти функции - подключение библиотек
 function append_script_2(){
     var script_2 = document.createElement('script');
     script_2.setAttribute('src', "https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js");
