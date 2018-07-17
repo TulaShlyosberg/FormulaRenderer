@@ -21,7 +21,7 @@ function htmlReplacer(str, offset, s){
 
 function prepareInnerHTML(innerStr){
     var hasFormula = innerStr.search(/[\\\$][\[\]\$]/);
-    if (hasFormula == -1) return innerStr;
+    if (hasFormula == -1) return innerStr;    //если формул нет - выходим
     var text = innerStr.split('$$');
     var identity = new Array(text.length).fill(false);
     var len = text.length;
