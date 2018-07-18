@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         FromulaRenderer
+// @name         FormulaRenderer
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  render formulas in vk messages
