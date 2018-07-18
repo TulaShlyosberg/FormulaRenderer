@@ -39,7 +39,7 @@ function prepareInnerHTML(messIndex, innerStr){
     $( this ).addClass("rendered");    //помечаем отрендеренное сообщение классом rendered
     var hasFormula = innerStr.search(/[\\\$][\[\]\$]/);
     if (hasFormula == -1) return innerStr;   //выходим, если нет формул
-    var text = innerStr.split('$$');   //отделяем формулы, заключенные в $$ от текста
+    var text = innerStr.split('$$');   //отделяем формулы, заключенные в $$, от текста
     var identity = new Array(text.length).fill(false);   //присваеваем им identity: false
     var len = text.length;
     var index = 0;
@@ -58,7 +58,9 @@ function prepareInnerHTML(messIndex, innerStr){
     for(var formulaIndex = 1; formulaIndex < text.length; formulaIndex+= 2){
         var buffer = document.createElement('span');
         try{   //рендерим формулы и после возвращаем результат
-            katex.render(text[formulaIndex].replace(/&quot;|&gt;|&lt;/g, htmlReplacer), buffer, {displayMode: identity[formulaIndex]});
+            katex.render(text[formulaIndex].replace(/&quot;|&gt;|&lt;/g, htmlReplacer), buffer, {
+				displayMode: identity[formulaIndex]
+				});
             text[formulaIndex] = buffer.innerHTML;
         } catch(e) {
             buffer.setAttribute('style', 'background: #fc0;');
