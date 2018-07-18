@@ -37,6 +37,8 @@ function htmlReplacer(str, offset, s){
 //заменяем текст формулы на ее саму
 function formulaReplacer(str, group_1, group_2, offset, s){
     var formula, formulaType = str[0] == '\\', res;
+	//смотрим тип формулы; все между $$ попадают в group_1,
+	//все между \[ и \] - в group_2
     if (formulaType) formula = group_2;
     else formula = group_1;
     var buffer = document.createElement('span');
