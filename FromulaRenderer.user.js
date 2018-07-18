@@ -76,7 +76,7 @@ function prepareInnerHTML(messIndex, innerStr){
 function render_all(){
 	$(".im-mess:not(.rendered),\
 	   .reply_content:not(.rendered),\
-	   .wall_post_text:not(.redered),\
+	   .wall_post_text:not(.rendered),\
 	   .article_layer__content:not(.rendered)").html(prepareInnerHTML);
 }
 
@@ -102,7 +102,7 @@ function appendExternalCSS(){
 function appendLibraries(){
 	//append JQuery
 	var script_0 = document.createElement('script');
-	script_0.src = "https://code.jquery.com/jquery-3.3.1.min.js";		
+	script_0.src = "https://code.jquery.com/jquery-3.3.1.min.js";
 	
 	//append Katex to render formulas
 	script_0.onload = function() {
