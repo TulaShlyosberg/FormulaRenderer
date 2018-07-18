@@ -40,7 +40,6 @@ function formulaReplacer(str, group_1, group_2, offset, s){
     if (formulaType) formula = group_2;
     else formula = group_1;
     var buffer = document.createElement('span');
-    alert(formula);
     try{   //рендерим формулы и после возвращаем результат
             katex.render(formula.replace(/&quot;|&gt;|&lt;/, htmlReplacer), buffer, {displayMode: formulaType});
             res = buffer.innerHTML;
