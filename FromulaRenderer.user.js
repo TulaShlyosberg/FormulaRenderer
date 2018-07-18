@@ -49,7 +49,7 @@ function prepareInnerHTML(messIndex, innerStr){
         if (elem.length === 1) index++;
         else {
             [].splice.apply(text, [index, 1].concat(elem));
-            [].splice.apply(identity, [index, 1].concat(new Array(elem.length).fill(true)));   //присваиваем им identity: false
+            [].splice.apply(identity, [index, 1].concat(new Array(elem.length).fill(true)));   //присваиваем им identity: true
             index+= elem.length;
         }
     }
